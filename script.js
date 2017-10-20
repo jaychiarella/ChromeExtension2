@@ -10,13 +10,15 @@ Date.prototype.timeNow = function () {
 
 const model = {
     init: function(){
-        localStorage.app = JSON.stringify([]);
+        chrome.storage.sync.set({'app': 'hello'});
     },
     add: function(id,time){
-        const data = JSON.parse(localStorage.app);
+        const data = JSON.parse(chrome.storage.sync.get({'app': JSON.stringify([])}));
         const tab = {idtime:id + time};
+        console.log(data);
         data.push(tab);
-        localStorage.app = JSON.stringify(data);
+        chrome.storage.sync.set(JSON.stringify(data));
+        //localStorage.app = JSON.stringify(data);
     }
 };
 
@@ -26,8 +28,7 @@ const controller = {
         model.init();
     },
     queryTabs: function(){
-        const queryInfo = {} // select all tabs
-        chrome.tabs.query(queryInfo,(tabs) => {
+        chrome.tabs.query({},tabs => {
             const currentTime = new Date().timeNow();
             tabs.forEach((tab) => {
                 model.add(tab.id, currentTime);
