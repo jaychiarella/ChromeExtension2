@@ -9,7 +9,9 @@
       "default_icon": "thumbs.jpg",
       "default_popup": "index.html"
     },
+
     "permissions":[
+      "tabs",
       "storage"
     ]
   }

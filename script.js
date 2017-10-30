@@ -10,7 +10,9 @@ Date.prototype.timeNow = function () {
 
 const model = {
     init: function(){
-        chrome.storage.sync.set({'app': 'hello'});
+        chrome.storage.local.set({'john':'nah'});
+        console.log('hi');
+        chrome.storage.local.get('john', tabs => {console.log(tabs)});
     },
     add: function(id,time){
         const data = JSON.parse(chrome.storage.sync.get({'app': JSON.stringify([])}));
